@@ -6,6 +6,7 @@ import authSliceReducer from './Slices/AuthSlice';
     reducer: {
         auth: authSliceReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
     devTools: true
  });
 
