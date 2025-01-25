@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,10 @@ function HomeLayout({ children }) {
         dispatch(logout());
         navigate('/login');
     }
+
+    useEffect(()=>{
+        if(!authState.isLoggedIn) navigate('/login');
+    },[]);
 
     return(
         <div className="min-h-[90vh]">
