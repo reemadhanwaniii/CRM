@@ -2,7 +2,7 @@
 
 function Card({ children,fontColor="text-white",borderColor="border-error",dividerColor="bg-gray-100",background="bg-primary", titleText = "Card ",status=50,quantity=50 }) {
     return(
-        <div className = {`border-b-8 ${borderColor} w-64 h-44 ${background} rounded-md flex flex-col justify-center items-center py-4`}>
+        <div className = {`hover:scale-110 hover:cursor-pointer transition-all ease-out duration-300 border-b-8 ${borderColor} w-64 h-44 ${background} rounded-md flex flex-col justify-center items-center py-4`}>
             <div className="text-primary-content text-2xl mb-2">
                 {children} <span>{titleText}</span>
             </div>
@@ -11,8 +11,8 @@ function Card({ children,fontColor="text-white",borderColor="border-error",divid
                 <div className={`text-7xl ${fontColor}`}>
                     {quantity}
                 </div>
-                <div className={`radial-progress ${fontColor}`} style={{ "--value": status }} role="progressbar">
-                    {status} %
+                <div className={`radial-progress ${fontColor}`} style={{ "--value": status*100 }} role="progressbar">
+                    {status*100}%
                 </div>
             </div>
         </div>
