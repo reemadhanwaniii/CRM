@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -43,8 +44,16 @@ function Signup() {
             !signupDetails.userType) return;
          const response = await dispatch(signup(signupDetails));
          console.log(response);
-         if(response.payload) navigate('/login');
-        else resetSignupState();
+         if(response.payload){
+
+            //toast.success("Successfully signed up");
+            navigate('/login');
+         }
+        else {
+
+            //toast.error("Something went wrong, please try again");
+            resetSignupState();
+        }
     }
 
     function handleInputChange(e) {
