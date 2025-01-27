@@ -1,4 +1,6 @@
 
+import { ArcElement, Chart as ChartJS, Legend, Title,Tooltip } from "chart.js";
+import { Pie } from 'react-chartjs-2';
 import { BsFillPencilFill } from "react-icons/bs";
 import { MdCancel,MdOutlineDoneAll, MdPending } from 'react-icons/md';
 import { TbProgressBolt } from 'react-icons/tb';
@@ -8,11 +10,27 @@ import useTickets from "../../hooks/useTickets";
 import HomeLayout from "../../layouts/HomeLayout";
 
 
+ChartJS.register(ArcElement, Legend, Title, Tooltip);
+
+
 function Home() {
 
-   
-    const [ticketsState] = useTickets();
+   const [ticketsState] = useTickets();
 
+   const pieChartData = {
+    labels: Object.keys(ticketsState.ticketDistribution),
+    fontColor: "white",
+    datasets: [
+        {
+            data: Object.values(ticketsState.ticketDistribution),
+            backgroundColor: ["yellow","red","green","blue","purple"],
+            borderColor: ["yellow","red","green","blue","purple"],
+            borderWidth: 1,
+        }
+    ]
+   };
+
+    
     return(
        <HomeLayout>
         {
@@ -75,6 +93,14 @@ function Home() {
             </Card>
         </div>
         )}
+
+        <div className="mt-10 flex justify-center items-center gap-10">
+            <div className="w-80 h-80">
+                <Pie 
+                    data={pieChartData}/>
+            </div>
+        </div>
+        
        </HomeLayout>
     );
 }

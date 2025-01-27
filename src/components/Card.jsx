@@ -9,6 +9,10 @@ function Card({ children,fontColor="text-white",borderColor="border-error",divid
         navigate(`/dashboard?status=${titleText}`);
     }
 
+
+    
+    const statusPercent = status * 100;
+
     return(
         <div onClick={onCardClick} className = {`hover:scale-110 hover:cursor-pointer transition-all ease-out duration-300 border-b-8 ${borderColor} w-64 h-44 ${background} rounded-md flex flex-col justify-center items-center py-4`}>
             <div className="text-primary-content text-2xl mb-2">
@@ -20,7 +24,7 @@ function Card({ children,fontColor="text-white",borderColor="border-error",divid
                     {quantity}
                 </div>
                 <div className={`radial-progress ${fontColor}`} style={{ "--value": status*100 }} role="progressbar">
-                    {status*100}%
+                   {statusPercent.toString().substring(0, 4)}%
                 </div>
             </div>
         </div>
