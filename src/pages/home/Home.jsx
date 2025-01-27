@@ -25,6 +25,10 @@ function Home() {
    });
 
 
+    function formatDate(dateStr) {
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return `${year}-${day}-${month}`;
+    }
    const pieChartData = {
     labels: Object.keys(ticketsState.ticketDistribution),
     fontColor: "white",
@@ -90,19 +94,24 @@ function Home() {
             // Process all the tickets one by one
             ticketsState.ticketList.forEach((ticket) => {
                 // Get the date part from the tickets by removing everything post the character T
-                const date = ticket.createdAt.split("T")[0];
+                let date = ticket.createdAt.split("T")[0];
+                date = formatDate(date);
                 const ticketDate = new Date(ticket.createdAt);
+                console.log("date :" ,date,"Ticket date",ticketDate)
                 // If ticket is open and lies in the last 10 days add it
                 if(ticket.status == "open" && ticketDate >= tenthDayFromToday) {
                     openTicketsData[date] =  openTicketsData[date] + 1;
+                    console.log("Open Ticket data", openTicketsData);
                 }
                 // If ticket is inProgress and lies in the last 10 days add it
                 if(ticket.status == "inProgress" && ticketDate >= tenthDayFromToday) {
                     inProgressTicketsData[date] = inProgressTicketsData[date] + 1;
+                    console.log("inProgress Ticket data", inProgressTicketsData);
                 }
                 // If ticket is resolved and lies in the last 10 days add it
                 if(ticket.status == "resolved" && ticketDate >= tenthDayFromToday) {
                     resolvedTicketsData[date] = resolvedTicketsData[date] + 1;
+                    console.log("resolve Ticket data", resolvedTicketsData);
                 }
                 if(ticket.status == "resolved") {
                     console.log(ticket);
@@ -119,7 +128,7 @@ function Home() {
     }
 
     useEffect(() => {
-        console.log(ticketsState);
+        console.log("Ticket states",ticketsState);
         processTickets();
     }, [ticketsState.ticketList]);
     
