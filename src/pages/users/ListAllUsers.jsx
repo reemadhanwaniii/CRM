@@ -62,7 +62,10 @@ function ListAllUsers() {
 
     return(
         <HomeLayout>
-        <div className="min-h-[90vh] flex items-center justify-center">
+        <div className="min-h-[90vh] flex flex-col items-center justify-center">
+                <h1 className="text-center font-bold text-5xl mb-4 text-yellow-500">
+                    Users List
+                </h1>
            { userList && <DataTable 
                  onRowClicked={(row) => {
                         setUserDisplay({
