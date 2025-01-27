@@ -18,7 +18,7 @@ function useTickets() {
 
     async function loadTickets() {
             if(ticketState.ticketList.length === 0){
-                const response = dispatch(getAllTicketsForUser());
+                const response = await dispatch(getAllTicketsForUser());
                 console.log(response);
             }
             if(searchParams.get("status")) {
