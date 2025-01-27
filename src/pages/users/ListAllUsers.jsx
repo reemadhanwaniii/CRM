@@ -8,6 +8,14 @@ import HomeLayout from "../../layouts/HomeLayout";
 function ListAllUsers() {
 
     const [userList,setUserList] = useState([]);
+    const [userDisplay, setUserDisplay] = useState({
+        name: '',
+        email: '',
+        userType: '',
+        userStatus: '',
+        clientName: '',
+    });
+
 
     const columns = [
         {
@@ -56,10 +64,35 @@ function ListAllUsers() {
         <HomeLayout>
         <div className="min-h-[90vh] flex items-center justify-center">
            { userList && <DataTable 
+                 onRowClicked={(row) => {
+                        setUserDisplay({
+                            name: row.name,
+                            clientName: row.clientName,
+                            email: row.email,
+                            userStatus: row.userStatus,
+                            userType: row.userType
+                        });
+                        document.getElementById('user_details_modal').showModal();
+                    }}
                 columns={columns}
                 data={userList}
             />
            }
+
+        
+                <dialog id="user_details_modal" className="modal">
+                <div className="modal-box text-lg font-semibold ">
+                    <h3 className="font-bold text-lg">User Details</h3>
+                    <p className="py-4">Name: <span className="text-yellow-500"> {userDisplay.name}</span></p>
+                    <p className="py-4">Client Name: <span className="text-yellow-500"> {userDisplay.clientName}</span></p>
+                    <p className="py-4">Status: <span className="text-yellow-500"> {userDisplay.userStatus}</span></p>
+                    <p className="py-4">Type: <span className="text-yellow-500"> {userDisplay.userType}</span></p>
+                    <p className="py-4">email: <span className="text-yellow-500"> {userDisplay.email}</span></p>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+                </dialog>
         </div>
         </HomeLayout>
     );
