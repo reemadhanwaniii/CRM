@@ -1,9 +1,11 @@
 
 
+import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { AiOutlineDownload } from "react-icons/ai";
 import { usePDF } from "react-to-pdf";
 
+import TicketDetailsModal from '../../components/TicketDetailsModal';
 import useTickets from "../../hooks/useTickets";
 import HomeLayout from "../../layouts/HomeLayout";
 
@@ -14,6 +16,8 @@ function Dashboard() {
     const [ticketsState] = useTickets();
 
     const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+
+    const [selectedTicket,setSelectedTicket] = useState({});
 
 
     const columns = [
@@ -88,6 +92,10 @@ function Dashboard() {
                 <div ref={targetRef}>
                     {ticketsState && 
                         <DataTable
+                            onRowClicked={(row) => {
+                                setSelectedTicket(row);
+                                document.getElementById('ticket_modal').showModal();
+                            }}
                             columns={columns}
                             data={ticketsState.ticketList}
                             expandableRows
@@ -95,6 +103,7 @@ function Dashboard() {
                             customStyles={customStyles}
                         />
                     }
+                    <TicketDetailsModal ticket={selectedTicket}/>
                 </div>
             </div>
         </HomeLayout>
